@@ -2,17 +2,20 @@
 
 import { getApiUrl, handleError } from "@/lib/utils";
 
-export const getProducts = async (offset, limit) => {
-  const url = getApiUrl(offset, limit);
+export const getProducts = async (offset, limit, host) => {
+  const url = getApiUrl(offset, limit, host);
 
   try {
     const response = await fetch(url);
     const data = await response.json();
-    if (!response.ok) {
-      throw await handleError(response);
+
+    if (!data.success) {
+      throw new Error(
+        "Something went wrong while fetching data from server. not successful"
+      );
     }
 
-    return data;
+    return data.data;
   } catch (error) {
     console.error(error);
     throw new Error(`An error occurred: ${error}`);

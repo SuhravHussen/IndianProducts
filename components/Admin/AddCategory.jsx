@@ -1,28 +1,27 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import AddAlternatives from "./AddAlternatives";
+import { useToast } from "../ui/use-toast";
+import handleAddCategory from "@/actions/addCategory";
 
 export default function AddCategory() {
-  const handleImageUpload = async (e) => {
+  const [name, setName] = useState("");
+  const [alternatives, setAlternatives] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const { toast } = useToast();
+
+  const addCategory = async (e) => {
     try {
-      const categoryRes = await fetch("/api/admin/category", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "Product Name",
-          alternatives: ["oil", "food", "drink"],
-        }),
-      });
-
-      const data = await categoryRes.json();
-
-      console.log(data);
+      setLoading(true);
+      const data = await handleAddCategory(name, alternatives, toast);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -30,10 +29,17 @@ export default function AddCategory() {
     <div>
       <h1 className="text-xl font-bold">Add Category</h1>
       <div className="flex flex-col gap-4 mt-4 justify-center">
-        <Input placeholder="Category Name" type="text" />
-        <AddAlternatives />
-        <Button type="submit" onClick={handleImageUpload}>
-          Add
+        <Input
+          placeholder="Category Name"
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+        />
+        <AddAlternatives
+          Alternatives={alternatives}
+          setAlternatives={setAlternatives}
+        />
+        <Button disabled={loading} type="submit" onClick={addCategory}>
+          {loading ? "Loading..." : "Add Category"}
         </Button>
       </div>
     </div>

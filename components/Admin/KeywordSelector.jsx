@@ -5,9 +5,7 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-export default function KeywordSelector() {
-  const [keywords, setKeywords] = useState(["oil", "food", "drink"]);
-
+export default function KeywordSelector({ keywords = [], setKeywords }) {
   const [keyword, setKeyword] = useState("");
 
   const removeKeyword = (keyword) => {

@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import { useInView } from "react-intersection-observer";
 import { getProducts } from "@/actions/getProducts";
 
-export default function ProductList({ initialProducts }) {
+export default function ProductList({ initialProducts, host }) {
   const [offset, setOffset] = useState(10);
   const [products, setproducts] = useState(initialProducts);
   const [hasMoreData, setHasMoreData] = useState(true);
@@ -14,7 +14,7 @@ export default function ProductList({ initialProducts }) {
 
   const loadMoreproducts = async () => {
     if (hasMoreData) {
-      const apiproducts = await getProducts(offset, 10);
+      const apiproducts = await getProducts(offset, 10, host);
 
       if (apiproducts.length == 0) {
         setHasMoreData(false);
@@ -31,13 +31,11 @@ export default function ProductList({ initialProducts }) {
     }
   }, [isInView, hasMoreData]);
 
-  console.log("products-", products);
   return (
     <>
-      <h1 className="font-bold ml-20 mb-6 ">Total Products- 300</h1>
       <div className="flex flex-wrap gap-4 justify-center ">
         {products?.map((product) => (
-          <ProductCard key={product.id} product={product} />
+          <ProductCard key={product._id} product={product} />
         ))}
       </div>
       <div className="...">

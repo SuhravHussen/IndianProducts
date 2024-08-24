@@ -5,9 +5,7 @@ import { Badge } from "../ui/badge";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-export default function AddAlternatives() {
-  const [Alternatives, setAlternatives] = useState(["oil", "food", "drink"]);
-
+export default function AddAlternatives({ Alternatives, setAlternatives }) {
   const [alternative, setAlternative] = useState("");
 
   const removeAlternative = (keyword) => {

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Card,
   CardContent,
@@ -15,19 +17,21 @@ export default function ProductCard({ product }) {
   return (
     <Card className="w-40 md:w-60">
       <CardHeader>
-        <CardTitle>Teer</CardTitle>
-        <CardDescription>Card Description</CardDescription>
+        <CardTitle className="text-xl">{product.name}</CardTitle>
+        <CardDescription>Indian Product</CardDescription>
       </CardHeader>
       <CardContent>
         <Image
-          src="https://via.placeholder.com/400x300"
-          alt="product image"
-          width={150}
-          height={150}
+          src={product.image}
+          alt={product.name}
+          width={400}
+          height={300}
+          placeholder="blur"
+          blurDataURL={product.image}
         />
       </CardContent>
       <CardFooter>
-        <AlternativesDrawer />
+        <AlternativesDrawer category={product.category} />
       </CardFooter>
     </Card>
   );

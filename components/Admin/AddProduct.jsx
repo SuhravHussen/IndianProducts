@@ -1,58 +1,58 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import KeywordSelector from "./KeywordSelector";
 import { SelectCategories } from "./SelectCategories";
+import { useToast } from "@/components/ui/use-toast";
+import addProduct from "@/actions/addProduct";
 
 export default function AddProduct() {
+  // states
+  const [name, setName] = useState("");
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [keywords, setKeywords] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [categoryList, setCategoryList] = useState([]);
+  const { toast } = useToast();
 
-  const handleImageUpload = async (e) => {
-    const formData = new FormData();
-    formData.append("file", image);
-    formData.append("upload_preset", "india_product");
-
+  // add product in server
+  const handleAddProduct = async () => {
+    setLoading(true);
     try {
-      //   const res = await fetch(
-      //     "https://api.cloudinary.com/v1_1/daamlrloa/image/upload",
-      //     {
-      //       method: "POST",
-      //       body: formData,
-      //     }
-      //   );
-
-      //   const data = await res.json();
-
-      //   console.log(data);
-
-      const productRes = await fetch("/api/admin/product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: "Product Name",
-          image: "https://api.cloudinary.com/v1_1/daamlrloa/image/upload",
-          keywords: ["oil", "food", "drink"],
-          category: "oil",
-        }),
-      });
-
-      const productData = await productRes.json();
-
-      console.log(productData);
+      const data = await addProduct(name, image, keywords, category, toast);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
+
+  // get category list
+  useEffect(() => {
+    const getCategoryList = async () => {
+      try {
+        const res = await fetch("/api/admin/category");
+        const data = await res.json();
+        setCategoryList(data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategoryList();
+  }, []);
   return (
     <div>
       <h1 className="text-xl font-bold">Add Product</h1>
 
       <div className="flex flex-col gap-4 mt-4 justify-center">
-        <Input placeholder="Product Name" type="text" />
+        <Input
+          placeholder="Product Name"
+          type="text"
+          onChange={(e) => setName(e.target.value)}
+        />
         <div>
           <Label htmlFor="picture" className="cursor-pointer">
             Picture
@@ -67,15 +67,14 @@ export default function AddProduct() {
         <SelectCategories
           label={"Category"}
           placeholder={"Select Category"}
-          list={[
-            { label: "Oil", value: "oil" },
-            { label: "Food", value: "food" },
-            { label: "Drink", value: "drink" },
-          ]}
+          list={categoryList}
+          setCategory={setCategory}
         />
-        <KeywordSelector />
+        <KeywordSelector keywords={keywords} setKeywords={setKeywords} />
 
-        <Button onClick={handleImageUpload}>Add</Button>
+        <Button onClick={handleAddProduct} disabled={loading}>
+          {loading ? "Loading..." : "Add Product"}
+        </Button>
       </div>
     </div>
   );

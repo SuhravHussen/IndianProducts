@@ -8,9 +8,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function SelectCategories({ placeholder, list = [], label }) {
+export function SelectCategories({
+  placeholder,
+  list = [],
+  label,
+  setCategory,
+}) {
+  console.log(list);
   return (
-    <Select>
+    <Select onValueChange={(value) => setCategory(value)}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
@@ -18,8 +24,8 @@ export function SelectCategories({ placeholder, list = [], label }) {
         <SelectGroup>
           <SelectLabel>{label}</SelectLabel>
           {list?.map((item) => (
-            <SelectItem key={item} value={item.value}>
-              {item.label}
+            <SelectItem key={item._id} value={item.name}>
+              {item.name}
             </SelectItem>
           ))}
         </SelectGroup>

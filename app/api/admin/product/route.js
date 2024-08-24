@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const { name, image, keywords, category } = await req.json();
-
+  console.log(image);
   if (!name || !image || !keywords || !category) {
     return NextResponse.json({
       error: "All fields are required",
