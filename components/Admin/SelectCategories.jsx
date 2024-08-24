@@ -14,7 +14,6 @@ export function SelectCategories({
   label,
   setCategory,
 }) {
-  console.log(list);
   return (
     <Select onValueChange={(value) => setCategory(value)}>
       <SelectTrigger className="w-[180px]">

@@ -57,3 +57,73 @@ export async function GET(req) {
     });
   }
 }
+
+// update category
+export async function PUT(req) {
+  const body = await req.json();
+  try {
+    await dbConnect();
+    // find category by id
+    const category = await CategorySchema.findById(body._id);
+    if (!category) {
+      return NextResponse.json({
+        error: "Category not found",
+        success: false,
+      });
+    }
+
+    // update category
+    const updatedCategory = await CategorySchema.findByIdAndUpdate(
+      body._id,
+      {
+        name: body.name,
+        alternatives: body.alternatives,
+      },
+      {
+        new: true,
+      }
+    );
+    console.log(updatedCategory);
+    return NextResponse.json({
+      category: updatedCategory,
+      success: true,
+    });
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json({
+      error: e,
+      success: false,
+    });
+  }
+}
+
+// delete category
+
+export async function DELETE(req) {
+  const body = await req.json();
+
+  try {
+    await dbConnect();
+    // find category by id
+    const category = await CategorySchema.findById(body._id);
+    if (!category) {
+      return NextResponse.json({
+        error: "Category not found",
+        success: false,
+      });
+    }
+
+    // delete category
+    const deletedCategory = await CategorySchema.findByIdAndDelete(body._id);
+    return NextResponse.json({
+      category: deletedCategory,
+      success: true,
+    });
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json({
+      error: e,
+      success: false,
+    });
+  }
+}

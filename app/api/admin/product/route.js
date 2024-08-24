@@ -33,3 +33,77 @@ export async function POST(req) {
     });
   }
 }
+
+export async function PUT(req) {
+  const body = await req.json();
+  try {
+    await dbConnect();
+    // find product by id
+    const product = await ProductSchema.findById(body._id);
+    if (!product) {
+      return NextResponse.json({
+        error: "Product not found",
+        success: false,
+      });
+    }
+
+    // update product
+
+    const updatedProduct = await ProductSchema.findByIdAndUpdate(
+      body._id,
+      {
+        name: body.name,
+        keywords: body.keywords,
+        category: body.category,
+      },
+      {
+        new: true,
+      }
+    );
+    console.log(updatedProduct);
+    return NextResponse.json({
+      product: updatedProduct,
+      success: true,
+    });
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json({
+      error: e,
+      success: false,
+    });
+  }
+}
+
+//delete product
+
+export async function DELETE(req) {
+  const body = await req.json();
+
+  try {
+    await dbConnect();
+    // find product by id
+    const product = await ProductSchema.findById(body._id);
+    console.log(body._id);
+    if (!product) {
+      return NextResponse.json({
+        error: "Product not found",
+        success: false,
+      });
+    }
+
+    // delete product
+
+    const deletedProduct = await ProductSchema.findByIdAndDelete(body._id);
+
+    return NextResponse.json({
+      data: deletedProduct,
+      success: true,
+    });
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json({
+      error: e,
+      success: false,
+    });
+  }
+}

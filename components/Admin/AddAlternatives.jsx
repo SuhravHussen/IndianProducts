@@ -22,7 +22,7 @@ export default function AddAlternatives({ Alternatives, setAlternatives }) {
       <p>Select Alternatives</p>
 
       <div className="flex gap-2 border p-2 rounded-md min-h-20 flex-wrap">
-        {Alternatives.map((alt) => (
+        {Alternatives?.map((alt) => (
           <div className="flex gap-1 justify-center items-center" key={alt}>
             <Badge className="h-8">{alt}</Badge>
             <p

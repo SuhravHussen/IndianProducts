@@ -1,5 +1,4 @@
 import { getProducts } from "@/actions/getProducts";
-
 import ProductList from "@/components/Product/ProductList";
 import { headers } from "next/headers";
 

@@ -1,5 +1,7 @@
 import AddCategory from "@/components/Admin/AddCategory";
 import AddProduct from "@/components/Admin/AddProduct";
+import EditCategory from "@/components/Admin/EditCategory";
+import EditProduct from "@/components/Admin/EditProduct";
 import { Separator } from "@/components/ui/separator";
 
 export default function page() {
@@ -8,6 +10,10 @@ export default function page() {
       <AddProduct />
       <Separator />
       <AddCategory />
+      <Separator />
+      <EditProduct />
+      <Separator />
+      <EditCategory />
     </section>
   );
 }
