@@ -1,4 +1,4 @@
-import ToggleButton from "../ui/ToggleButton";
+import Report from "./Report";
 import { Search } from "./SearchBar";
 
 export default function Header() {
@@ -8,7 +8,7 @@ export default function Header() {
         Indian Products List
       </h1>
       <Search />
-      <p className="text-center text-md my-8 ">
+      <p className="text-center text-md my-8 w-[95%]">
         Identify and Boycott Indian Products in Bangladesh: Make a Stand for
         Local Choices
       </p>
@@ -16,6 +16,7 @@ export default function Header() {
         বাংলাদেশে ভারতীয় পণ্য সনাক্ত করুন এবং বয়কট করুন: স্থানীয় পণ্যের পক্ষে
         দাঁড়ান
       </p>
+      <Report />
     </section>
   );
 }

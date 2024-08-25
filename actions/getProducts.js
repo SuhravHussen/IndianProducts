@@ -21,3 +21,7 @@ export const getProducts = async (offset, limit, host) => {
     throw new Error(`An error occurred: ${error}`);
   }
 };
+
+function delay(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

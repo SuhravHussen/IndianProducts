@@ -5,7 +5,7 @@ const handleImageUpload = async (image) => {
 
   try {
     const res = await fetch(
-      "https://api.cloudinary.com/v1_1/daamlrloa/image/upload",
+      `https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_PRESET}/image/upload`,
       {
         method: "POST",
         body: formData,

@@ -11,13 +11,15 @@ import {
 
 import Image from "next/image";
 import { AlternativesDrawer } from "../Drawer/Alternatives";
+import { Badge } from "../ui/badge";
 
 //   https://via.placeholder.com/400x300
 export default function ProductCard({ product }) {
   return (
     <Card className="w-40 md:w-60">
       <CardHeader>
-        <CardTitle className="text-xl">{product.name}</CardTitle>
+        <CardTitle className="text-xl flex flex-col">{product.name} </CardTitle>
+        <Badge className="w-fit">{product.category}</Badge>
         <CardDescription>Indian Product</CardDescription>
       </CardHeader>
       <CardContent>
