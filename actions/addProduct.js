@@ -11,7 +11,7 @@ const addProduct = async (name, image, keywords, category, toast) => {
   }
   try {
     const imageUrl = await handleImageUpload(image);
-    console.log();
+
     if (!imageUrl) {
       toast({
         variant: "destructive",
