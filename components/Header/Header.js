@@ -3,7 +3,7 @@ import { Search } from "./SearchBar";
 
 export default function Header() {
   return (
-    <section className="flex flex-col items-center justify-center  min-h-[60vh] w-[95%] mx-auto">
+    <section className="flex flex-col items-center justify-center  min-h-[60vh] w-[95%] mx-auto mb-9 mt-12">
       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
         Indian Products List
       </h1>
