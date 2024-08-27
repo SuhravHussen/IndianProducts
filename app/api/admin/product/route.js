@@ -3,7 +3,7 @@ import ProductSchema from "@/lib/schema/productSchema";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  const { name, image, keywords, category } = await req.json();
+  let { name, image, keywords, category } = await req.json();
   name = name.trim();
   image = image.trim();
   category = category.trim();

@@ -3,7 +3,7 @@ import CategorySchema from "@/lib/schema/categorySchema";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  const { name, alternatives = [] } = await req.json();
+  let { name, alternatives = [] } = await req.json();
 
   if (!name) {
     return NextResponse.json({
