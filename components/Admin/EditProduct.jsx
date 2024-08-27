@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import KeywordSelector from "./KeywordSelector";
@@ -10,7 +10,7 @@ import { updatedProduct } from "@/actions/updateProduct";
 import { useToast } from "../ui/use-toast";
 import { deleteProduct } from "@/actions/deleteProduct";
 
-export default function EditProduct() {
+function EditProduct() {
   // states
   const [product, setProduct] = useState({});
   const [name, setName] = useState("");
@@ -110,7 +110,7 @@ export default function EditProduct() {
           <Input
             placeholder="Edit Name"
             type="text"
-            value={product.name}
+            value={product?.name}
             onChange={(e) => setProduct({ ...product, name: e.target.value })}
           />
           <KeywordSelector
@@ -146,3 +146,5 @@ export default function EditProduct() {
     </div>
   );
 }
+
+export default memo(EditProduct);

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import { memo, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import AddAlternatives from "./AddAlternatives";
@@ -9,7 +9,7 @@ import { updateCategory } from "@/actions/updateCategory";
 import { useToast } from "../ui/use-toast";
 import { deleteCategory } from "@/actions/deleteCategory";
 
-export default function EditCategory() {
+function EditCategory({ refreshCategoryList }) {
   const [name, setName] = useState("");
   const [category, setCategory] = useState({ alternatives: [], name: "" });
   const [searchLoading, setSearchLoading] = useState(false);
@@ -40,6 +40,7 @@ export default function EditCategory() {
         toast({
           title: "Category Updated",
         });
+        refreshCategoryList();
       } else {
         toast({
           title: "Something went wrong",
@@ -66,6 +67,7 @@ export default function EditCategory() {
         toast({
           title: "Category Deleted",
         });
+        refreshCategoryList();
       } else {
         toast({
           title: "Something went wrong",
@@ -124,6 +126,7 @@ export default function EditCategory() {
           disabled={deleteLoading}
           variant="destructive"
           className="w-full"
+          onClick={handleDeleteCategory}
         >
           {deleteLoading ? "Deleting..." : "Delete Category"}
         </Button>
@@ -131,3 +134,5 @@ export default function EditCategory() {
     </div>
   );
 }
+
+export default memo(EditCategory);

@@ -33,7 +33,10 @@ export default function DrawerContents({ category }) {
           {!loading &&
             alternatives.length > 0 &&
             alternatives.map((alt, i) => (
-              <div key={i} className=" p-4 bg-slate-100 rounded-md">
+              <div
+                key={i}
+                className=" p-4 bg-black text-white font-bold rounded-md "
+              >
                 {alt}
               </div>
             ))}

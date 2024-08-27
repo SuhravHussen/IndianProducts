@@ -83,7 +83,6 @@ export async function PUT(req) {
         new: true,
       }
     );
-    console.log(updatedCategory);
     return NextResponse.json({
       category: updatedCategory,
       success: true,

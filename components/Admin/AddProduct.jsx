@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { memo, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -8,14 +8,13 @@ import { SelectCategories } from "./SelectCategories";
 import { useToast } from "@/components/ui/use-toast";
 import addProduct from "@/actions/addProduct";
 
-export default function AddProduct() {
+function AddProduct({ categoryList }) {
   // states
   const [name, setName] = useState("");
   const [image, setImage] = useState(null);
   const [category, setCategory] = useState(null);
   const [keywords, setKeywords] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [categoryList, setCategoryList] = useState([]);
   const { toast } = useToast();
 
   // add product in server
@@ -30,19 +29,6 @@ export default function AddProduct() {
     }
   };
 
-  // get category list
-  useEffect(() => {
-    const getCategoryList = async () => {
-      try {
-        const res = await fetch("/api/admin/category");
-        const data = await res.json();
-        setCategoryList(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCategoryList();
-  }, []);
   return (
     <div>
       <h1 className="text-xl font-bold">Add Product</h1>
@@ -79,3 +65,5 @@ export default function AddProduct() {
     </div>
   );
 }
+
+export default memo(AddProduct);

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Report from "./Report";
 import { Search } from "./SearchBar";
 
@@ -5,7 +6,7 @@ export default function Header() {
   return (
     <section className="flex flex-col items-center justify-center  min-h-[60vh] w-[95%] mx-auto mb-9 mt-12">
       <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-6">
-        Indian Products List
+        <Link href={"/"}>Indian Products List</Link>
       </h1>
       <Search />
       <p className="text-center text-md my-8 w-[95%]">

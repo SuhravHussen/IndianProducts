@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const { name, image, keywords, category } = await req.json();
-  console.log(image);
+
   if (!name || !image || !keywords || !category) {
     return NextResponse.json({
       error: "All fields are required",
@@ -60,7 +60,7 @@ export async function PUT(req) {
         new: true,
       }
     );
-    console.log(updatedProduct);
+
     return NextResponse.json({
       product: updatedProduct,
       success: true,
@@ -83,7 +83,7 @@ export async function DELETE(req) {
     await dbConnect();
     // find product by id
     const product = await ProductSchema.findById(body._id);
-    console.log(body._id);
+
     if (!product) {
       return NextResponse.json({
         error: "Product not found",

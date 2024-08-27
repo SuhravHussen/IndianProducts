@@ -6,8 +6,9 @@ import { Input } from "../ui/input";
 import AddAlternatives from "./AddAlternatives";
 import { useToast } from "../ui/use-toast";
 import handleAddCategory from "@/actions/addCategory";
+import { memo } from "react";
 
-export default function AddCategory() {
+function AddCategory({ refreshCategoryList }) {
   const [name, setName] = useState("");
   const [alternatives, setAlternatives] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export default function AddCategory() {
     try {
       setLoading(true);
       const data = await handleAddCategory(name, alternatives, toast);
+      refreshCategoryList();
     } catch (error) {
       console.log(error);
     } finally {
@@ -45,3 +47,5 @@ export default function AddCategory() {
     </div>
   );
 }
+
+export default memo(AddCategory);
