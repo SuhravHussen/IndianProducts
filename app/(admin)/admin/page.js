@@ -42,7 +42,7 @@ import { useEffect, useState } from "react";
 // }
 
 const AdminPage = withPageAuthRequired(
-  async () => {
+  () => {
     const [categoryList, setCategoryList] = useState([]);
 
     const getCategoryList = async () => {
