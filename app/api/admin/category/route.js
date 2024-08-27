@@ -11,7 +11,7 @@ export async function POST(req) {
       success: false,
     });
   }
-
+  name = name.trim();
   try {
     await dbConnect();
     const newCategory = await CategorySchema.create({
@@ -76,7 +76,7 @@ export async function PUT(req) {
     const updatedCategory = await CategorySchema.findByIdAndUpdate(
       body._id,
       {
-        name: body.name,
+        name: body.name.trim(),
         alternatives: body.alternatives,
       },
       {

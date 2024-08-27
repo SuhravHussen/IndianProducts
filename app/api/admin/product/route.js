@@ -4,6 +4,9 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   const { name, image, keywords, category } = await req.json();
+  name = name.trim();
+  image = image.trim();
+  category = category.trim();
 
   if (!name || !image || !keywords || !category) {
     return NextResponse.json({
@@ -52,9 +55,9 @@ export async function PUT(req) {
     const updatedProduct = await ProductSchema.findByIdAndUpdate(
       body._id,
       {
-        name: body.name,
+        name: body.name.trim(),
         keywords: body.keywords,
-        category: body.category,
+        category: body.category.trim(),
       },
       {
         new: true,

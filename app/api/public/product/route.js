@@ -9,8 +9,16 @@ export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const offset = parseInt(searchParams.get("offset"), 10) || 0;
     const limit = parseInt(searchParams.get("limit"), 10) || 10;
+    const sortOrder = searchParams.get("sort") === "desc" ? -1 : 1; // Use "desc" for Z-A, anything else for A-Z
+    const category = searchParams.get("category");
 
-    const products = await ProductSchema.find().skip(offset).limit(limit);
+    const filter = category ? { category } : {};
+    console.log(filter);
+    // Sorting products by a specific field
+    const products = await ProductSchema.find(filter)
+      .sort({ name: sortOrder })
+      .skip(offset)
+      .limit(limit);
 
     return NextResponse.json({
       data: products,
