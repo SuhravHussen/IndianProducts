@@ -20,10 +20,11 @@ export default function ProductList({ initialProducts, host }) {
   const [hasMoreData, setHasMoreData] = useState(true);
   const [sort, setSort] = useState("");
   const [scrollTrigger, isInView] = useInView();
+  const [filter, setFilter] = useState("");
 
   const loadMoreproducts = async () => {
     if (hasMoreData) {
-      const apiproducts = await getProducts(offset, 10, host, sort);
+      const apiproducts = await getProducts(offset, 10, host, sort, filter);
 
       if (apiproducts.length == 0) {
         setHasMoreData(false);
@@ -40,15 +41,23 @@ export default function ProductList({ initialProducts, host }) {
     }
   }, [isInView, hasMoreData]);
 
+  //handle filter change
+  const handleFilterChange = (value) => {
+    getProducts(0, 10, host, sort, value).then((data) => {
+      console.log(data);
+      setproducts(data);
+      setOffset(10);
+      setHasMoreData(true);
+      setFilter(value);
+    });
+  };
+
   return (
     <>
-      {/* sort */}
-
-      <div className="flex justify-center mb-4 w-[95%] mx-auto gap-4">
+      <div className="flex justify-center mb-4 w-[90%] mx-auto gap-4  sm:flex-row">
         <Select
-          className="select select-bordered w-full max-w-xs"
           onValueChange={(value) => {
-            getProducts(0, 10, host, value).then((data) => {
+            getProducts(0, 10, host, value, filter).then((data) => {
               setproducts(data);
               setOffset(10);
               setHasMoreData(true);
@@ -56,7 +65,7 @@ export default function ProductList({ initialProducts, host }) {
             });
           }}
         >
-          <SelectTrigger>
+          <SelectTrigger className="w-[50%]">
             <SelectValue placeholder="Sort" />
           </SelectTrigger>
           <SelectContent>
@@ -66,7 +75,7 @@ export default function ProductList({ initialProducts, host }) {
             </SelectGroup>
           </SelectContent>
         </Select>
-        <FilterProduct />
+        <FilterProduct filter={filter} setFilter={handleFilterChange} />
       </div>
 
       <div className="flex flex-wrap gap-4 justify-center ">

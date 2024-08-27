@@ -114,7 +114,7 @@ function EditProduct() {
             onChange={(e) => setProduct({ ...product, name: e.target.value })}
           />
           <KeywordSelector
-            keywords={product.keywords}
+            keywords={product?.keywords}
             setKeywords={(keywords) => setProduct({ ...product, keywords })}
           />
 

@@ -10,10 +10,10 @@ export async function GET(req) {
     const offset = parseInt(searchParams.get("offset"), 10) || 0;
     const limit = parseInt(searchParams.get("limit"), 10) || 10;
     const sortOrder = searchParams.get("sort") === "desc" ? -1 : 1; // Use "desc" for Z-A, anything else for A-Z
-    const category = searchParams.get("category");
+    const category = searchParams.get("filter");
 
     const filter = category ? { category } : {};
-    console.log(filter);
+    console.log(category);
     // Sorting products by a specific field
     const products = await ProductSchema.find(filter)
       .sort({ name: sortOrder })

@@ -3,8 +3,7 @@
 import { useEffect, useState } from "react";
 import { SelectCategories } from "./SelectCategories";
 
-function FilterProduct() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+function FilterProduct({ filter, setFilter }) {
   const [categoryList, setCategoryList] = useState([]);
 
   const getCategoryList = async () => {
@@ -22,12 +21,12 @@ function FilterProduct() {
   }, []);
 
   return (
-    <div>
+    <div className="w-[50%]">
       <SelectCategories
         placeholder={"Select Category"}
         list={categoryList}
         label={"Category"}
-        setCategory={setSelectedCategory}
+        setCategory={setFilter}
       />
     </div>
   );

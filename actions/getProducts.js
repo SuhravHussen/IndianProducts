@@ -2,11 +2,17 @@
 
 import { getApiUrl, handleError } from "@/lib/utils";
 
-export const getProducts = async (offset, limit, host, sort = "") => {
+export const getProducts = async (
+  offset,
+  limit,
+  host,
+  sort = "",
+  filter = ""
+) => {
   const url = getApiUrl(offset, limit, host);
 
   try {
-    const response = await fetch(`${url}&&sort=${sort}`);
+    const response = await fetch(`${url}&&sort=${sort}&&filter=${filter}`);
     const data = await response.json();
 
     if (!data.success) {

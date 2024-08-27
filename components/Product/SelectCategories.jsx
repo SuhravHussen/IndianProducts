@@ -16,12 +16,13 @@ export function SelectCategories({
 }) {
   return (
     <Select onValueChange={(value) => setCategory(value)}>
-      <SelectTrigger className="w-[180px]">
+      <SelectTrigger className="w-full">
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           <SelectLabel>{label}</SelectLabel>
+          <SelectItem value={" "}>All</SelectItem>
           {list?.map((item) => (
             <SelectItem key={item._id} value={item.name}>
               {item.name}
