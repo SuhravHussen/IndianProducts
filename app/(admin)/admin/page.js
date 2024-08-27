@@ -6,7 +6,7 @@ import EditCategory from "@/components/Admin/EditCategory";
 import EditProduct from "@/components/Admin/EditProduct";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { useEffect, useState } from "react";
 
 // export default function Page() {
@@ -42,7 +42,7 @@ import { useEffect, useState } from "react";
 // }
 
 const AdminPage = withPageAuthRequired(
-  () => {
+  async () => {
     const [categoryList, setCategoryList] = useState([]);
 
     const getCategoryList = async () => {
