@@ -1,5 +1,6 @@
 import dbConnect from "@/lib/connectDB";
 import CategorySchema from "@/lib/schema/categorySchema";
+import ProductSchema from "@/lib/schema/productSchema";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
@@ -83,6 +84,14 @@ export async function PUT(req) {
         new: true,
       }
     );
+
+    // check name changes
+    if (updatedCategory.name !== category.name) {
+      await ProductSchema.updateMany(
+        { category: category.name },
+        { $set: { category: updatedCategory.name } }
+      );
+    }
     return NextResponse.json({
       category: updatedCategory,
       success: true,

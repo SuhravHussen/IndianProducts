@@ -13,7 +13,7 @@ export async function GET(req) {
 
     // Search categories by name
     const category = await CategorySchema.findOne({
-      name: { $regex: name, $options: "i" },
+      name: { $regex: name.trim(), $options: "i" },
     }).sort({ name: 1 });
 
     return NextResponse.json({
