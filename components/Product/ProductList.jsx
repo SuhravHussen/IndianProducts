@@ -38,10 +38,10 @@ export default function ProductList({ initialProducts, host }) {
   };
 
   useEffect(() => {
-    if (isInView && hasMoreData) {
+    if (isInView && hasMoreData && !loading) {
       loadMoreproducts();
     }
-  }, [isInView, hasMoreData]);
+  }, [isInView, hasMoreData, loading]);
 
   //handle filter change
   const handleFilterChange = (value) => {
